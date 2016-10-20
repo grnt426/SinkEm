@@ -13,9 +13,11 @@ public class Board {
 	public static final String START = "ST";
 
 	public final HashMap<String, String> board;
+	public final HashMap<String, String> shuffledBoardHistory;
 
 	public Board(String filename){
 		board = new HashMap<>();
+		shuffledBoardHistory = new HashMap<>();
 		try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
 			String line = null;
 			int row = 0;
@@ -33,15 +35,11 @@ public class Board {
 		}
 	}
 
-	private String generateStamp(String tile){
+	public String generateStamp(String tile){
 		return generateStamp(tile, 0);
 	}
 
-	private String generateStamp(String tile, int index){
-		switch(tile){
-			case EMPTY: return index + ":" + EMPTY + ":" + START;
-			case PATROL: return index + ":" + PATROL + ":" + START;
-			default: return "ER:ER:ER";
-		}
+	public String generateStamp(String tile, int index){
+		return index + ":" + tile + ":" + START;
 	}
 }
